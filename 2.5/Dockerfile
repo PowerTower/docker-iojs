@@ -3,7 +3,7 @@ MAINTAINER Brandon Papworth "brandon@powertower.com"
 
 ENV NODE_ENV development
 
-RUN mkdir -p /data/__bootstrap_tasks
+RUN mkdir /data
 
 COPY __bootstrap.js /data/
 
