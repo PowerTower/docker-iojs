@@ -91,6 +91,15 @@ try {
     logger.error('[babel config]', err.stack);
 }
 
+if (babelrc && typeof babelrc.ignore === 'string') {
+    try {
+        babelrcRegExp = new RegExp(babelrc.ignore);
+        babelrc.ignore = babelrcRegExp;
+    } catch (err) {
+        logger.error('[babel config] babelrc.ignore probably isn\'t a regular expression.');
+    }
+}
+
 try {
     babelRegisterFilename = require.resolve('babel/register');
     if (!babelRegisterFilename) {
