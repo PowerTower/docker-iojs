@@ -76,6 +76,7 @@ if (!process.env.BABEL_CACHE_PATH && process.env.BABEL_DISABLE_CACHE !== '1') {
 }
 
 var babelrc;
+var babelrcRegExp;
 var babelRegisterFilename;
 
 try {
