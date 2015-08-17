@@ -101,6 +101,15 @@ if (babelrc && typeof babelrc.ignore === 'string') {
     }
 }
 
+if (babelrc && typeof babelrc.only === 'string') {
+    try {
+        babelrcRegExp = new RegExp(babelrc.only);
+        babelrc.only = babelrcRegExp;
+    } catch (err) {
+        logger.error('[babel config] babelrc.only probably isn\'t a regular expression.');
+    }
+}
+
 try {
     babelRegisterFilename = require.resolve('babel/register');
     if (!babelRegisterFilename) {
