@@ -24,6 +24,7 @@ var procResult;
 MAIN_PATH = pkgJsonData.main;
 if (!MAIN_PATH) {
     throw new Error('[__bootstrap] missing required "main" property in package.json');
+    process.exit(1);
 }
 
 pkgHash.update(pkgJsonString);
