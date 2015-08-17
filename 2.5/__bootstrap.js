@@ -24,6 +24,7 @@ var procResult;
 MAIN_PATH = pkgJsonData.main;
 if (!MAIN_PATH) {
     throw new Error('[__bootstrap] missing required "main" property in package.json');
+    process.exit(1);
 }
 
 pkgHash.update(pkgJsonString);
@@ -75,6 +76,7 @@ if (!process.env.BABEL_CACHE_PATH && process.env.BABEL_DISABLE_CACHE !== '1') {
 }
 
 var babelrc;
+var babelrcRegExp;
 var babelRegisterFilename;
 
 try {
@@ -88,6 +90,24 @@ try {
     }
 } catch (err) {
     logger.error('[babel config]', err.stack);
+}
+
+if (babelrc && typeof babelrc.ignore === 'string') {
+    try {
+        babelrcRegExp = new RegExp(babelrc.ignore);
+        babelrc.ignore = babelrcRegExp;
+    } catch (err) {
+        logger.error('[babel config] babelrc.ignore probably isn\'t a regular expression.');
+    }
+}
+
+if (babelrc && typeof babelrc.only === 'string') {
+    try {
+        babelrcRegExp = new RegExp(babelrc.only);
+        babelrc.only = babelrcRegExp;
+    } catch (err) {
+        logger.error('[babel config] babelrc.only probably isn\'t a regular expression.');
+    }
 }
 
 try {
